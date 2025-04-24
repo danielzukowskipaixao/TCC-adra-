@@ -1,0 +1,67 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("https://amazonasatual.com.br/wp-content/uploads/2021/09/Dinheiro-doacao-projeto.jpg");
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+}
+.container {
+    width: 350px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+    margin: 120px 0 20px 65px;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header img {
+    width: 40px;
+    height: 40px;
+}
+.logo img {
+    width: 100px;
+    margin: 10px 0;
+}
+.info {
+    background-color: #eef0e6;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 15px 0;
+    text-align: center;
+}
+.info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+.qr-section {
+    text-align: center;
+}
+.qr-section img {
+    width: 120px;
+    height: 120px;
+}
+.amount {
+    text-align: center;
+    margin: 15px 0;
+}
+.amount input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.logo{
+    margin: 0 0 0 105px;
+}

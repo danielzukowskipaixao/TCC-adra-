@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://www.paraentender.com.br/wp-content/uploads/2017/04/adra.jpg'); /* Define a imagem de fundo */
+    background-size: cover; /* Faz a imagem cobrir todo o fundo */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Impede a repetição da imagem */
+    background-attachment: fixed; /* Mantém a imagem fixa ao rolar a página */
+}
+
+.container {
+    max-width: 550px;
+    margin: 120px 0 20px 65px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo, .user-icon {
+    height: 40px;
+}
+
+.adra-logo {
+    display: block;
+    margin: 0 auto;
+    height: 60px;
+}
+
+main {
+    text-align: center;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    background-color: #f3f3eb;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.instruction {
+    font-size: 14px;
+    color: #6e6e6e;
+    margin-bottom: 20px;
+}
+
+.map-container {
+    position: relative;
+    text-align: center;
+}
+
+.map-image {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.asa {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #6e6e6e;
+}

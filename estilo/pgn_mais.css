@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(https://s3.eu-central-1.amazonaws.com/uploads.darujme.cz/project/header/ADRA-2022-Ukrajina-humanitarni-balicky-1-kopie.jpg-8b907569416530cd6e40c836d4f970e4.jpg);
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-size: cover; 
+}
+
+.container {
+    width: 320px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.adra-logo {
+    width: 120px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.adra-logo:hover {
+    transform: scale(1.1);
+}
+
+.icon-back {
+    width: 40px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.content h1 {
+    font-size: 24px;
+    color: #2E8B57;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content p {
+    font-size: 14px;
+    color: #333;
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .adra-logo {
+        width: 130px;
+    }
+
+    .icon-back {
+        width: 25px;
+    }
+
+    .content h1 {
+        font-size: 22px;
+    }
+
+    .content p {
+        font-size: 13px;
+    }
+}
