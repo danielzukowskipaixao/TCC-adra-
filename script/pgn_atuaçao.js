@@ -1,95 +1,145 @@
-// Abrir o modal
-const modal = document.getElementById("modal");
-const addItemButton = document.querySelector(".additional-items");
-const closeBtn = document.querySelector(".close-btn");
-const addItemBtn = document.getElementById("add-item-btn");
-const itemInput = document.getElementById("item-input");
-const itemList = document.getElementById("item-list");
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("modal");
+    const addItemButton = document.querySelector(".additional-items");
+    const closeBtn = document.querySelector(".close-btn");
+    const addItemBtn = document.getElementById("add-item-btn");
+    const itemInput = document.getElementById("item-input");
+    const addedItemsList = document.getElementById("added-items-list");
+    const reviewItemsButton = document.getElementById("review-items-btn");
+    const reviewModal = document.getElementById("review-modal");
+    const closeReviewBtn = document.querySelector(".close-review-btn");
+    const reviewItemsList = document.getElementById("review-items-list");
+    const editOrderBtn = document.getElementById("edit-order-btn");
+    const sendOrderBtn = document.querySelector("#review-modal .send-order-btn");
 
-// Adicionar item na lista quando clicar no botão "Adicionar"
-addItemBtn.addEventListener("click", () => {
-    const itemText = itemInput.value.trim();
-    
-    if (itemText) {
-        // Criar item na lista dentro do modal
-        const listItem = document.createElement("li");
-        listItem.textContent = itemText;
-        itemList.appendChild(listItem);
+    // Carregar itens salvos
+    const savedItems = JSON.parse(localStorage.getItem("userItems")) || [];
+    savedItems.forEach(item => addItemToList(item));
 
-        // Criar item na lista na tela principal
-        const addedItem = document.createElement("li");
-        addedItem.textContent = itemText;
-        document.getElementById("added-items-list").appendChild(addedItem);
-
-        itemInput.value = ""; // Limpar o campo de input após adicionar
-        modal.style.display = "none"; // Fechar o modal após adicionar
+    function saveItems() {
+        const items = Array.from(addedItemsList.children).map(li => li.textContent.replace("Remover", "").trim());
+        localStorage.setItem("userItems", JSON.stringify(items));
     }
-});
 
-
-const reviewItemsButton = document.getElementById("review-items-btn");
-const reviewModal = document.getElementById("review-modal");
-const closeReviewBtn = document.querySelector(".close-review-btn");
-const reviewItemsList = document.getElementById("review-items-list");
-const editOrderBtn = document.getElementById("edit-order-btn");
-const sendOrderBtn = document.getElementById("send-order-btn");
-
-// Mostrar o botão "Revisar Pedido" quando um item for adicionado
-function showReviewButton() {
-    if (document.querySelectorAll("#added-items-list li").length > 0) {
-        reviewItemsButton.style.display = "block";
-    } else {
-        reviewItemsButton.style.display = "none";
+    function addItemToList(itemText) {
+        const li = document.createElement("li");
+        li.innerHTML = `${itemText} <button class="remove-item-btn">Remover</button>`;
+        li.style.animation = "fadeIn 0.4s ease";
+        addedItemsList.appendChild(li);
+        showReviewButton();
+        saveItems();
     }
-}
 
-// Dentro da função que adiciona um item à lista:
-document.getElementById("add-item-btn").addEventListener("click", () => {
-    // Código para adicionar itens na lista
-    showReviewButton(); // Chamar a função para verificar se deve exibir o botão
-});
+    addItemBtn.addEventListener("click", () => {
+        const itemText = itemInput.value.trim();
+        if (itemText) {
+            addItemToList(itemText);
+            itemInput.value = "";
+            modal.style.display = "none";
+            modal.classList.remove("show");
+        }
+    });
 
-// Dentro da função que remove um item da lista:
-document.getElementById("added-items-list").addEventListener("click", (event) => {
-    if (event.target.classList.contains("remove-item-btn")) {
-        event.target.parentElement.remove();
-        showReviewButton(); // Atualizar a exibição do botão após remover
+    addedItemsList.addEventListener("click", (e) => {
+        if (e.target.classList.contains("remove-item-btn")) {
+            e.target.parentElement.remove();
+            showReviewButton();
+            saveItems();
+        }
+    });
+
+    function showReviewButton() {
+        reviewItemsButton.style.display = addedItemsList.children.length > 0 ? "block" : "none";
     }
-});
 
-document.getElementById("profile-btn").addEventListener("click", function() {
-            document.getElementById("profile-modal").style.display = "block";
-        });
+    // Abrir e fechar modal com animação
+    addItemButton.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modal.classList.add("show");
+    });
 
-        document.querySelector(".close-profile-btn").addEventListener("click", function() {
-            document.getElementById("profile-modal").style.display = "none";
-        });
-
-// Exibir o modal ao clicar no botão "Adicionar Itens"
-addItemButton.addEventListener("click", () => {
-    modal.style.display = "flex";
-});
-
-// Fechar o modal ao clicar no "X"
-closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-});
-
-// Fechar o modal ao clicar fora do conteúdo do modal
-window.addEventListener("click", (event) => {
-    if (event.target === modal) {
+    closeBtn.addEventListener("click", () => {
         modal.style.display = "none";
-    }
+        modal.classList.remove("show");
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+            modal.classList.remove("show");
+        }
+    });
+
+    // Revisar pedido
+    reviewItemsButton.addEventListener("click", () => {
+        reviewItemsList.innerHTML = "";
+        Array.from(addedItemsList.children).forEach(li => {
+            const clone = li.cloneNode(true);
+            clone.querySelector("button")?.remove(); // remove botão remover
+            reviewItemsList.appendChild(clone);
+        });
+        reviewModal.style.display = "flex";
+        reviewModal.classList.add("show");
+    });
+
+    closeReviewBtn.addEventListener("click", () => {
+        reviewModal.style.display = "none";
+        reviewModal.classList.remove("show");
+    });
+
+    editOrderBtn.addEventListener("click", () => {
+        reviewModal.style.display = "none";
+        reviewModal.classList.remove("show");
+    });
+
+    sendOrderBtn.addEventListener("click", () => {
+        const items = Array.from(addedItemsList.children).map(li => li.textContent.replace("Remover", "").trim());
+        alert("Pedido enviado com os seguintes itens:\n" + items.join("\n"));
+        localStorage.setItem("userItems", JSON.stringify(items)); // salva pedido final
+    });
+
+    // Modal do perfil
+    document.getElementById("profile-btn").addEventListener("click", () => {
+        document.getElementById("profile-modal").style.display = "block";
+        document.getElementById("profile-modal").classList.add("show");
+    });
+
+    document.querySelector(".close-profile-btn").addEventListener("click", () => {
+        document.getElementById("profile-modal").style.display = "none";
+        document.getElementById("profile-modal").classList.remove("show");
+    });
 });
 
-// Adicionar item na lista quando clicar no botão "Adicionar"
-addItemBtn.addEventListener("click", () => {
-    const itemText = itemInput.value.trim();
-    
-    if (itemText) {
-        const listItem = document.createElement("li");
-        listItem.textContent = itemText;
-        itemList.appendChild(listItem);
-        itemInput.value = ""; // Limpar o campo de input após adicionar
+
+sendOrderBtn.addEventListener("click", () => {
+    const items = Array.from(addedItemsList.children).map(li =>
+        li.textContent.replace("Remover", "").trim()
+    );
+
+    if (items.length === 0) {
+        alert("Você ainda não adicionou nenhum item.");
+        return;
     }
+
+    // Salvar no localStorage
+    localStorage.setItem("userItems", JSON.stringify(items));
+
+    // Mostrar na área de pedido enviado
+    const submittedContainer = document.getElementById("submitted-order-container");
+    const submittedList = document.getElementById("submitted-items-list");
+
+    submittedList.innerHTML = "";
+    items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        submittedList.appendChild(li);
+    });
+
+    submittedContainer.style.display = "block";
+
+    // Fechar modal de revisão
+    reviewModal.style.display = "none";
+    reviewModal.classList.remove("show");
+
+    alert("Pedido enviado com sucesso!");
 });

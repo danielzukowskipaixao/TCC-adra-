@@ -79,3 +79,18 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+
+.game-container {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  #pingPongCanvas {
+    border: 3px solid #4CAF50;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    display: block;
+    margin: 0 auto;
+  }
+  
